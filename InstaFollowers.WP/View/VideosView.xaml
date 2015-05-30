@@ -1,0 +1,78 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="InstaFollowers.WP.View.VideosView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Mp.Mobi.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    mc:Ignorable="d"
+      SupportedOrientations="PortraitOrLandscape"
+     DataContext="{Binding ImagesModel, Source={StaticResource Locator}}" x:Name="ImagesPage">
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="PivotItemStyle1" TargetType="phone:PivotItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="phone:PivotItem">
+                        <Grid Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Pivot">
+                                    <VisualState x:Name="Right"/>
+                                    <VisualState x:Name="Left"/>
+                                    <VisualState x:Name="Center"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button BorderThickness="0" Height="80" HorizontalAlignment="Left"  Padding="0" Command="{Binding BackCommand}">
+            <Grid>
+                <Image Margin="0" Stretch="Uniform" Source="/Assets/AppBarIcons/appbar.back.rest.png"></Image>
+                <Image Margin="0" Stretch="Uniform" Source="/Assets/AppBarIcons/appbar.basecircle.rest.png"></Image>
+            </Grid>
+        </Button>
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ProgressBar IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"></ProgressBar>
+
+            <phone:Pivot SelectedItem="{Binding CurrentImage, Mode=TwoWay}" x:Name="ImagesControl" SelectedIndex="{Binding CurrentImageIndex, Mode=TwoWay}" Grid.Row="1" ItemsSource="{Binding Videos}" ItemContainerStyle="{StaticResource PivotItemStyle1}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <command:EventToCommand Command="{Binding DataContext.NavigateToImageCommand, Mode=OneWay,ElementName=ImagesPage}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <phone:Pivot.ItemTemplate>
+                    <DataTemplate>
+                        <MediaElement  Name="MediaElement" Stretch="Uniform" Source="{Binding Source}">
+                            
+                        </MediaElement>
+                    </DataTemplate>
+                </phone:Pivot.ItemTemplate>
+                <phone:Pivot.HeaderTemplate>
+                    <DataTemplate/>
+                </phone:Pivot.HeaderTemplate>
+            </phone:Pivot>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>
