@@ -4,6 +4,7 @@ using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using InstaFollowers.WP.Model;
+using InstaFollowers.WP.Model.Instagram;
 using InstaFollowers.WP.Services;
 
 namespace InstaFollowers.WP.ViewModel
@@ -14,7 +15,6 @@ namespace InstaFollowers.WP.ViewModel
     public RelayCommand VideosCommand { get; private set; }
     public RelayCommand FavoriteVideosCommand { get; private set; }
     public RelayCommand<VideoViewModel> PlayCommand { get; private set; }
-
 
     private bool _isBusy;
     public bool IsBusy
@@ -27,57 +27,28 @@ namespace InstaFollowers.WP.ViewModel
       }
     }
 
-    private int _newVideosCount;
+    private UserViewModel _user;
 
-    public int NewVideosCount
+    public UserViewModel User
     {
-      get { return _newVideosCount; }
-      set { _newVideosCount = value; RaisePropertyChanged(); }
+      get { return _user; }
+      set { _user = value; RaisePropertyChanged(); }
     }
 
-    private readonly ObservableCollection<VideoViewModel> _videos = new ObservableCollection<VideoViewModel>();
-    public ObservableCollection<VideoViewModel> Videos { get { return _videos; } }
+    public void InitializeWithUser(UserResponse userResponse)
+    {
+      User = new UserViewModel(userResponse.Data);
+    }
 
     public MainViewModel(IVideoService videoService)
     {
       _videoService = videoService;
-      SetNewImagesCount();
       VideosCommand = new RelayCommand(() => App.RootFrame.Navigate(new Uri("/View/VideosView.xaml?type=1", UriKind.Relative)));
       FavoriteVideosCommand = new RelayCommand(() => App.RootFrame.Navigate(new Uri("/View/VideosView.xaml?type=2", UriKind.Relative)));
-      PlayCommand = new RelayCommand<VideoViewModel>(PlayExecute);
+
 
       AnalyticsService.TrackMainView();
     }
 
-    private void PlayExecute(VideoViewModel video)
-    {
-      var playingVideo = Videos.SingleOrDefault(i => i.IsPlaying);
-      if (playingVideo != null)
-      {
-        playingVideo.IsPlaying = false;
-      }
-    
-      video.IsPlaying = true;
-    }
-
-    private void SetNewImagesCount()
-    {
-      IsBusy = true;
-      _videoService.GetVideos(1, async (videos, exception) =>
-      {
-        var videosResult = await videos;
-        Videos.Clear();
-        foreach (var video in videosResult)
-        {
-          Videos.Add(video);
-        }
-        IsBusy = false;
-      });
-
-      _videoService.GetNewCount((count) =>
-     {
-       NewVideosCount = count;
-     });
-    }
   }
 }

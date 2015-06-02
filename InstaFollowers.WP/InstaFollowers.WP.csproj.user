@@ -12,6 +12,9 @@
     <CurrentDeployCmdId>256</CurrentDeployCmdId>
     <CurrentDeployID>BC33F59A-75C2-482D-A3EB-5B80CD5F0DDE</CurrentDeployID>
   </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{C089C8C0-30E0-4E22-80C0-CE093F111A43}">

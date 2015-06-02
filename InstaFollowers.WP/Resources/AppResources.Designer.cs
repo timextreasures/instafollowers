@@ -61,38 +61,11 @@ namespace InstaFollowers.WP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add.
+        ///   Looks up a localized string similar to Login Text EN.
         /// </summary>
-        public static string AppBarButtonText {
+        public static string LoginText {
             get {
-                return ResourceManager.GetString("AppBarButtonText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menu Item.
-        /// </summary>
-        public static string AppBarMenuItemText {
-            get {
-                return ResourceManager.GetString("AppBarMenuItemText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to MY APPLICATION.
-        /// </summary>
-        public static string ApplicationTitle {
-            get {
-                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LeftToRight.
-        /// </summary>
-        public static string ResourceFlowDirection {
-            get {
-                return ResourceManager.GetString("ResourceFlowDirection", resourceCulture);
+                return ResourceManager.GetString("LoginText", resourceCulture);
             }
         }
         

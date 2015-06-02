@@ -161,10 +161,10 @@ namespace InstaFollowers.WP
       {
         RootFrame.Language = XmlLanguage.GetLanguage(AppResources.ResourceLanguage);
 
-        var flow =
-            (FlowDirection)
-            Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
-        RootFrame.FlowDirection = flow;
+        //var flow =
+        //    (FlowDirection)
+        //    Enum.Parse(typeof(FlowDirection), AppResources.ResourceFlowDirection);
+        //RootFrame.FlowDirection = flow;
       }
       catch
       {

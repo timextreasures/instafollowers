@@ -43,36 +43,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button BorderThickness="0" Height="80" HorizontalAlignment="Left"  Padding="0" Command="{Binding BackCommand}">
-            <Grid>
-                <Image Margin="0" Stretch="Uniform" Source="/Assets/AppBarIcons/appbar.back.rest.png"></Image>
-                <Image Margin="0" Stretch="Uniform" Source="/Assets/AppBarIcons/appbar.basecircle.rest.png"></Image>
-            </Grid>
-        </Button>
-        <Grid Grid.Row="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <ProgressBar IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"></ProgressBar>
-
-            <phone:Pivot SelectedItem="{Binding CurrentImage, Mode=TwoWay}" x:Name="ImagesControl" SelectedIndex="{Binding CurrentImageIndex, Mode=TwoWay}" Grid.Row="1" ItemsSource="{Binding Videos}" ItemContainerStyle="{StaticResource PivotItemStyle1}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <command:EventToCommand Command="{Binding DataContext.NavigateToImageCommand, Mode=OneWay,ElementName=ImagesPage}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <phone:Pivot.ItemTemplate>
-                    <DataTemplate>
-                        <MediaElement  Name="MediaElement" Stretch="Uniform" Source="{Binding Source}">
-                            
-                        </MediaElement>
-                    </DataTemplate>
-                </phone:Pivot.ItemTemplate>
-                <phone:Pivot.HeaderTemplate>
-                    <DataTemplate/>
-                </phone:Pivot.HeaderTemplate>
-            </phone:Pivot>
-        </Grid>
+     
+       
     </Grid>
 </phone:PhoneApplicationPage>

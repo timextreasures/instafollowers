@@ -17,48 +17,6 @@
                             shell:SystemTray.IsVisible="True" Name="Page"
                             DataContext="{Binding Main, Source={StaticResource Locator}}" Orientation="Portrait">
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="QuadroTile" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="Segoe WP Light"/>
-            <Setter Property="FontWeight" Value="ExtraLight"/>
-            <Setter Property="FontSize" Value="32"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-        </Style>
-
-        <Style x:Key="HorizontalTile" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="Segoe WP Light"/>
-            <Setter Property="FontWeight" Value="ExtraLight"/>
-            <Setter Property="FontSize" Value="37.333"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-        </Style>
-        <Style x:Key="PivotItemStyle1" TargetType="phone:PivotItem">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="phone:PivotItem">
-                        <Grid Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="Pivot">
-                                    <VisualState x:Name="Right"/>
-                                    <VisualState x:Name="Left"/>
-                                    <VisualState x:Name="Center"/>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.Background>
         <RadialGradientBrush  Center="0.565,0.448">
@@ -67,58 +25,30 @@
         </RadialGradientBrush>
     </phone:PhoneApplicationPage.Background>
     <Grid x:Name="LayoutRoot">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+        <Grid Visibility="{Binding IsAuth, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reverse}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <Button Grid.Row="0" Command="{Binding VideosCommand}" Content="Videos"></Button>
-        <Button Grid.Row="1" Command="{Binding FavoriteVideosCommand}" Content="Favorite"></Button>
+            <TextBlock Grid.Row="0" Text="{Binding User.UserName}" Foreground="White"></TextBlock>
+            <Image Grid.Row="1" Source="{Binding User.ProfilePicture}"></Image>
+            <TextBlock Grid.Row="2" Text="{Binding User.FullName}" Foreground="White"></TextBlock>
 
-        <ListBox Grid.Row="2" ItemsSource="{Binding Videos}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="2">
-                       
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2*"></RowDefinition>
-                            <RowDefinition Height="2*"></RowDefinition>
-                            <RowDefinition Height="2*"></RowDefinition>
-                        </Grid.RowDefinitions>
+            <Grid  Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                        <Button Height="50" Width="50" 
-                                    Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reverse}"
-                                    Canvas.ZIndex="20"
-                                    BorderBrush="Transparent"
-                                    BorderThickness="0" Padding="0" Margin="0" 
-                                Command="{Binding DataContext.PlayCommand, ElementName=Page}" CommandParameter="{Binding }">
-                            <Image Source="Assets/play_button.png"></Image>
-                        </Button>
-
-
-                        <!--<Button Canvas.ZIndex="2" Grid.Row="1" BorderBrush="Transparent" BorderThickness="0" Padding="0" Margin="0" 
-                                Command="{Binding PauseCommand}" CommandParameter="{Binding }">
-                            <Image Source="Assets/pause_button.png"></Image>
-                        </Button>-->
-
-                        <Image Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Stretch"
-                                   HorizontalAlignment="Stretch"
-                                   Canvas.ZIndex="2" Source="{Binding Poster}" 
-                                   Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reverse}"/>
-                       
-                        <MediaElement Source="{Binding VideoSource}" AutoPlay="False"
-                                      Visibility="{Binding IsPlaying, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Row="0" Grid.RowSpan="3">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="CurrentStateChanged">
-                                    <command:EventToCommand Command="{Binding StateChangedCommand, Mode=OneWay}" PassEventArgsToCommand="True"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </MediaElement>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <TextBlock Grid.Column="0" Text="{Binding User.Media}" Foreground="White"></TextBlock>
+                <TextBlock Grid.Column="1"  Text="{Binding User.Follows}" Foreground="White"></TextBlock>
+                <TextBlock  Grid.Column="2" Text="{Binding User.FollowedBy}" Foreground="White"></TextBlock>
+            </Grid>
+        </Grid>
 
 
 
