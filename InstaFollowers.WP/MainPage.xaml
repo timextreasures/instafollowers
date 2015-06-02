@@ -24,29 +24,66 @@
             <GradientStop Color="White" Offset="1"/>
         </RadialGradientBrush>
     </phone:PhoneApplicationPage.Background>
-    <Grid x:Name="LayoutRoot">
-        <Grid Visibility="{Binding IsAuth, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reverse}">
+    <Grid x:Name="LayoutRoot" Background="#ff1ba1e2">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="{Binding User.UserName}" Foreground="White"></TextBlock>
-            <Image Grid.Row="1" Source="{Binding User.ProfilePicture}"></Image>
-            <TextBlock Grid.Row="2" Text="{Binding User.FullName}" Foreground="White"></TextBlock>
+            <ProgressBar 
+                         Foreground="White"
+                IsIndeterminate="True"
+                         Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"></ProgressBar>
 
-            <Grid  Grid.Row="3">
+            <Grid Grid.Row="1" Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding User.UserName}" Margin="0,0,0,2" Foreground="White"></TextBlock>
+                <Border Grid.Column="0" Height="170" Width="170" Grid.Row="1" BorderThickness="1" HorizontalAlignment="Left" BorderBrush="White">
+                    <Image  Source="{Binding User.ProfilePicture}"></Image>
+                </Border>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Text="{Binding User.FullName}" Foreground="White"></TextBlock>
+
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" Text="{Binding Path=LocalizedResources.Media, Source={StaticResource LocalizedStrings}}" Foreground="White"></TextBlock>
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1"  Text="{Binding Path=LocalizedResources.Follows, Source={StaticResource LocalizedStrings}}" Foreground="White"></TextBlock>
+                    <TextBlock  HorizontalAlignment="Center" Grid.Row="0"  Grid.Column="2" Text="{Binding Path=LocalizedResources.FollowedBy, Source={StaticResource LocalizedStrings}}" Foreground="White"></TextBlock>
+
+                    <TextBlock TextDecorations="Underline" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding User.Media}" Foreground="White"></TextBlock>
+                    <TextBlock TextDecorations="Underline" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1"  Text="{Binding User.Follows}" Foreground="White"></TextBlock>
+                    <TextBlock TextDecorations="Underline" HorizontalAlignment="Center" Grid.Row="1"  Grid.Column="2" Text="{Binding User.FollowedBy}" Foreground="White"></TextBlock>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{Binding User.Media}" Foreground="White"></TextBlock>
-                <TextBlock Grid.Column="1"  Text="{Binding User.Follows}" Foreground="White"></TextBlock>
-                <TextBlock  Grid.Column="2" Text="{Binding User.FollowedBy}" Foreground="White"></TextBlock>
+
             </Grid>
         </Grid>
 

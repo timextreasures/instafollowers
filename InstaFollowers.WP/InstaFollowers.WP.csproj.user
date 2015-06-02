@@ -13,7 +13,7 @@
     <CurrentDeployID>BC33F59A-75C2-482D-A3EB-5B80CD5F0DDE</CurrentDeployID>
   </PropertyGroup>
   <PropertyGroup>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

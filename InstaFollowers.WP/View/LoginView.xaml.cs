@@ -40,7 +40,7 @@ namespace InstaFollowers.WP.View
     {
       var url = e.Uri.ToString().ToLower();
 
-      if (url == InstagramConfiguration.AuthUrl)
+      if (url.StartsWith(InstagramConfiguration.AuthUrl))
       {
         var html = Browser.SaveToString();
 
@@ -49,6 +49,11 @@ namespace InstaFollowers.WP.View
 
         HtmlNode tokenElement = dom.GetElementbyId("token");
         var token = tokenElement.Attributes["value"].Value;
+        if (string.IsNullOrEmpty(token))
+        {
+          return;
+        }
+
         IsolatedStorageSettings.ApplicationSettings.Add("token", token);
         IsolatedStorageSettings.ApplicationSettings.Save();
         InitializeProfile();

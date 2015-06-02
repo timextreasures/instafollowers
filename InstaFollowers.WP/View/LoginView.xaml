@@ -21,9 +21,10 @@
 
         <phone:WebBrowser Name="Browser"></phone:WebBrowser>
 
-        <Grid Grid.Row="1">
-            <TextBlock Foreground="White" Text="{Binding Path=LocalizedResources.LoginText, Source={StaticResource LocalizedStrings}}"></TextBlock>
-        </Grid>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
+            <TextBlock Foreground="White" Text="{Binding Path=LocalizedResources.InstaLoginScreenText, Source={StaticResource LocalizedStrings}}"></TextBlock>
+            <TextBlock Foreground="White" Text="{Binding Path=LocalizedResources.DontSavePasswordText, Source={StaticResource LocalizedStrings}}"></TextBlock>
+        </StackPanel>
 
     </Grid>
 

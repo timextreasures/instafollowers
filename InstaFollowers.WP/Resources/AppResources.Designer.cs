@@ -61,11 +61,47 @@ namespace InstaFollowers.WP.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login Text EN.
+        ///   Looks up a localized string similar to We do not save your user name or password..
         /// </summary>
-        public static string LoginText {
+        public static string DontSavePasswordText {
             get {
-                return ResourceManager.GetString("LoginText", resourceCulture);
+                return ResourceManager.GetString("DontSavePasswordText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Followed.
+        /// </summary>
+        public static string FollowedBy {
+            get {
+                return ResourceManager.GetString("FollowedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follows.
+        /// </summary>
+        public static string Follows {
+            get {
+                return ResourceManager.GetString("Follows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is instagram login screen..
+        /// </summary>
+        public static string InstaLoginScreenText {
+            get {
+                return ResourceManager.GetString("InstaLoginScreenText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media.
+        /// </summary>
+        public static string Media {
+            get {
+                return ResourceManager.GetString("Media", resourceCulture);
             }
         }
         

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using InstaFollowers.WP.Model;
@@ -14,15 +15,23 @@ namespace InstaFollowers.WP.ViewModel
     private readonly IVideoService _videoService;
     public RelayCommand VideosCommand { get; private set; }
     public RelayCommand FavoriteVideosCommand { get; private set; }
-    public RelayCommand<VideoViewModel> PlayCommand { get; private set; }
 
-    private bool _isBusy;
+    private int _isBusy;
     public bool IsBusy
     {
-      get { return _isBusy; }
+      get { return _isBusy != 0; }
       set
       {
-        _isBusy = value;
+        if (value)
+        {
+          Interlocked.Increment(ref _isBusy);
+        }
+        else
+        {
+          Interlocked.Decrement(ref _isBusy);
+          
+        }
+
         RaisePropertyChanged();
       }
     }
